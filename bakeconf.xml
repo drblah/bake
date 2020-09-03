@@ -416,7 +416,6 @@
        <depends_on name="bc" optional="False"/>
        <build type="make" objdir="no">
          <attribute name="supported_os" value="linux;linux2"/>
-         <attribute name="configure_arguments" value="defconfig ARCH=lib"/>
          <attribute name="build_arguments" value="library ARCH=lib"/>
          <attribute name="no_installation" value="True"/>
          <attribute name="pre_installation" value="cd $SRCDIR ; make defconfig ARCH=lib ; ./scripts/config --set-val CONFIG_BATMAN_ADV y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BATMAN_V y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BLA y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_DAT y ; ./scripts/config --disable CONFIG_BATMAN_ADV_NC ; ./scripts/config --disable CONFIG_BATMAN_ADV_DEBUG ; ./scripts/config --disable CONFIG_BATMAN_ADV_SYSFS"/>
