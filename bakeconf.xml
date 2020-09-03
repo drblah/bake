@@ -26,7 +26,7 @@
       <depends_on name="dce-meta-dev" optional="False"/>
       <build type="waf" objdir="build">
         <attribute name="supported_os" value="linux;linux2"/>
-        <attribute name="configure_arguments" value="configure --with-ns3=$INSTALLDIR --with-elf-loader=$INSTALLDIR/lib --with-libaspect=$INSTALLDIR --prefix=$INSTALLDIR"/>
+        <attribute name="configure_arguments" value="configure --disable-python --with-ns3=$INSTALLDIR --with-elf-loader=$INSTALLDIR/lib --with-libaspect=$INSTALLDIR --prefix=$INSTALLDIR"/>
      </build>
     </module>
 
@@ -42,6 +42,21 @@
       <build type="waf" objdir="yes" sourcedir="ns-3-dce">
         <attribute name="supported_os" value="linux;linux2"/>
         <attribute name="configure_arguments" value="configure --prefix=$INSTALLDIR --with-ns3=$INSTALLDIR --with-elf-loader=$INSTALLDIR/lib --with-libaspect=$INSTALLDIR --enable-kernel-stack=$SRCDIR/../net-next-nuse-4.4.0/arch"/>
+      </build>
+    </module>
+
+    <module name="dce-linux-dev-batman">
+      <source type="git">
+		  <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
+        <attribute name="module_directory" value="ns-3-dce"/>
+      </source>
+      <depends_on name="dce-meta-dev" optional="False"/>
+      <depends_on name="net-next-nuse-4.4.0-batman" optional="False"/>
+      <depends_on name="iproute2-4.4.0" optional="False"/>
+      <depends_on name="lksctp-dev" optional="True"/>
+      <build type="waf" objdir="yes" sourcedir="ns-3-dce">
+        <attribute name="supported_os" value="linux;linux2"/>
+        <attribute name="configure_arguments" value="configure --disable-python --prefix=$INSTALLDIR --with-ns3=$INSTALLDIR --with-elf-loader=$INSTALLDIR/lib --with-libaspect=$INSTALLDIR --enable-kernel-stack=$SRCDIR/../net-next-nuse-4.4.0/arch"/>
       </build>
     </module>
 
@@ -376,6 +391,24 @@
          <attribute name="configure_arguments" value="defconfig ARCH=lib"/>
          <attribute name="build_arguments" value="library ARCH=lib"/>
          <attribute name="no_installation" value="True"/>
+         <attribute name="post_installation" value="mkdir -p $INSTALLDIR/bin_dce; cd $INSTALLDIR/bin_dce; cp $SRCDIR/arch/lib/tools/libsim-linux-4.4.0.so ./; ln -s -f libsim-linux-4.4.0.so liblinux.so"/>
+       </build>
+     </module>
+
+     <module name="net-next-nuse-4.4.0-batman">
+       <source type="git">
+         <attribute name="url" value="https://github.com/drblah/net-next-nuse.git"/>
+         <attribute name="module_directory" value="net-next-nuse-4.4.0"/>
+         <attribute name="revision" value="batman-2020.3"/>
+         <attribute name="fetch_option" value=""/>
+       </source>
+       <depends_on name="bc" optional="False"/>
+       <build type="make" objdir="no">
+         <attribute name="supported_os" value="linux;linux2"/>
+         <attribute name="configure_arguments" value="defconfig ARCH=lib"/>
+         <attribute name="build_arguments" value="library ARCH=lib"/>
+         <attribute name="no_installation" value="True"/>
+         <attribute name="pre_installation" value="cd $SRCDIR ; make defconfig ARCH=lib ; ./scripts/config --set-val CONFIG_BATMAN_ADV y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BATMAN_V y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BLA y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_DAT y ; ./scripts/config --disable CONFIG_BATMAN_ADV_NC ; ./scripts/config --disable CONFIG_BATMAN_ADV_DEBUG ; ./scripts/config --disable CONFIG_BATMAN_ADV_SYSFS"/>
          <attribute name="post_installation" value="mkdir -p $INSTALLDIR/bin_dce; cd $INSTALLDIR/bin_dce; cp $SRCDIR/arch/lib/tools/libsim-linux-4.4.0.so ./; ln -s -f libsim-linux-4.4.0.so liblinux.so"/>
        </build>
      </module>
@@ -1267,7 +1300,7 @@
   
     <module name="libc">
       <source type="system_dependency">
-        <attribute name="file_test" value="/usr/lib/ld-linux.so.2 or /lib/ld-linux.so.2"/>
+        <attribute name="file_test" value="/usr/lib/ld-linux.so.2 or /lib/ld-linux.so.2 or /lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"/>
         <attribute name="name_apt-get" value="libc6"/>
         <attribute name="name_yum" value="glibc"/>
         <attribute name="more_information" value="Didn't find:   libc package; please install it."/>
@@ -1278,7 +1311,7 @@
 
     <module name="libc-debug">
       <source type="system_dependency">
-        <attribute name="file_test" value="/usr/lib/debug/lib64/ld-linux-x86-64.so.2.debug or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.25.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.24.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.22.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.21.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.20.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.19.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.18.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.17.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.16.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so or/usr/lib/debug/lib/i386-linux-gnu/ld-2.25.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.24.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.23.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.22.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.21.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.20.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.19.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.18.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.17.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.16.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.15.so"/>
+        <attribute name="file_test" value="/usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so or /usr/lib/debug/lib64/ld-linux-x86-64.so.2.debug or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.25.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.24.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.22.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.21.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.20.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.19.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.18.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.17.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.16.so or /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so or/usr/lib/debug/lib/i386-linux-gnu/ld-2.25.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.24.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.23.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.22.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.21.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.20.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.19.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.18.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.17.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.16.so or /usr/lib/debug/lib/i386-linux-gnu/ld-2.15.so"/>
         <attribute name="name_apt-get" value="libc6-dbg"/>
         <attribute name="name_yum" value="glibc-debuginfo"/>
         <attribute name="more_information" value="Didn't find:   libc debug package; please install it."/>
@@ -1425,7 +1458,7 @@
       <depends_on name="pybindgen" optional="True"/>
       <depends_on name="pyviz-gtk3-prerequisites" optional="True"/>
       <build type="waf" objdir="yes">
-        <attribute name="configure_arguments" value="configure --prefix=$INSTALLDIR --enable-examples --enable-tests"/>
+        <attribute name="configure_arguments" value="configure --prefix=$INSTALLDIR --enable-mpi --enable-examples --enable-tests"/>
       </build>
   </module>
 
