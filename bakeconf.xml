@@ -54,6 +54,7 @@
       <depends_on name="net-next-nuse-4.4.0-batman" optional="False"/>
       <depends_on name="iproute2-4.4.0" optional="False"/>
       <depends_on name="lksctp-dev" optional="True"/>
+      <depends_on name="batctl" optional="True"/>
       <build type="waf" objdir="yes" sourcedir="ns-3-dce">
         <attribute name="supported_os" value="linux;linux2"/>
         <attribute name="configure_arguments" value="configure --disable-python --prefix=$INSTALLDIR --with-ns3=$INSTALLDIR --with-elf-loader=$INSTALLDIR/lib --with-libaspect=$INSTALLDIR --enable-kernel-stack=$SRCDIR/../net-next-nuse-4.4.0/arch"/>
@@ -204,6 +205,16 @@
         <attribute name="pre_installation" value="cd $SRCDIR;./configure --prefix=$INSTALLDIR"/>
         <attribute name="patch" value="$SRCDIR/../ns-3-dce/utils/iperf_4_dce.patch"/>
         <attribute name="build_arguments" value="CFLAGS=-fPIC CFLAGS+=-U_FORTIFY_SOURCE CXXFLAGS=-fPIC CXXFLAGS+=-U_FORTIFY_SOURCE LDFLAGS=-pie LDFLAGS+=-rdynamic"/>
+      </build>
+     </module>
+
+    <module name="batctl">
+      <source type="archive">
+        <attribute name="url" value="https://downloads.open-mesh.org/batman/releases/batman-adv-2020.3/batctl-2020.3.tar.gz"/>
+        <attribute name="extract_directory" value="batctl-2020.3"/>
+      </source>
+      <build type="make" objdir="yes">
+        <attribute name="install_arguments" value="DESTDIR=$INSTALLDIR" />
       </build>
      </module>
 
