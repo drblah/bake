@@ -18,6 +18,23 @@
       </build>
     </module>
 
+    <module name="dce-meta-dev-batman">
+      <source type="git">
+        <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
+        <attribute name="module_directory" value="ns-3-dce"/>
+      </source>
+      <depends_on name="ns-3.31-mpi" optional="False"/>
+      <depends_on name="elf-loader" optional="True"/>
+      <depends_on name="libaspect" optional="True"/>
+      <depends_on name="iperf" optional="True"/>
+      <depends_on name="ccnx" optional="True"/>
+      <depends_on name="wget" optional="True"/>
+      <depends_on name="thttpd" optional="True"/>
+      <depends_on name="bash" optional="True"/>
+      <build type="none">
+      </build>
+    </module>
+
     <module name="dce-ns3-dev">
       <source type="git">
 		  <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
@@ -50,7 +67,7 @@
 		  <attribute name="url" value="git://github.com/direct-code-execution/ns-3-dce"/>
         <attribute name="module_directory" value="ns-3-dce"/>
       </source>
-      <depends_on name="dce-meta-dev" optional="False"/>
+      <depends_on name="dce-meta-dev-batman" optional="False"/>
       <depends_on name="net-next-nuse-4.4.0-batman" optional="False"/>
       <depends_on name="iproute2-4.4.0" optional="False"/>
       <depends_on name="lksctp-dev" optional="True"/>
@@ -1710,6 +1727,20 @@
       <depends_on name="pyviz-gtk3-prerequisites" optional="True"/>
       <build type="waf" objdir="yes">
         <attribute name="configure_arguments" value="configure --prefix=$INSTALLDIR --enable-examples --enable-tests"/>
+      </build>
+    </module>
+
+    <module name="ns-3.31-mpi" type="ns">
+      <source type="git">
+        <attribute name="url" value="https://gitlab.com/nsnam/ns-3-dev.git"/>
+        <attribute name="module_directory" value="ns-3.31"/>
+        <attribute name="revision" value="ns-3.31"/>
+      </source>
+      <depends_on name="netanim-3.108" optional="True"/>
+      <depends_on name="pybindgen-0.21.0" optional="True"/>
+      <depends_on name="pyviz-gtk3-prerequisites" optional="True"/>
+      <build type="waf" objdir="yes">
+        <attribute name="configure_arguments" value="configure --prefix=$INSTALLDIR --enable-mpi --enable-examples --enable-tests"/>
       </build>
     </module>
 
