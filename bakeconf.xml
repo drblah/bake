@@ -433,6 +433,7 @@
        <depends_on name="bc" optional="False"/>
        <build type="make" objdir="no">
          <attribute name="supported_os" value="linux;linux2"/>
+         <attribute name="build_arguments" value="library ARCH=lib"/>
          <attribute name="no_installation" value="True"/>
          <attribute name="pre_installation" value="cd $SRCDIR ; make defconfig ARCH=lib ; ./scripts/config --set-val CONFIG_BATMAN_ADV y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BLA y ; ./scripts/config --disable CONFIG_BATMAN_ADV_DAT ; ./scripts/config --disable CONFIG_BATMAN_ADV_NC ; ./scripts/config --disable CONFIG_BATMAN_ADV_MCAST"/>
          <attribute name="post_installation" value="mkdir -p $INSTALLDIR/bin_dce; cd $INSTALLDIR/bin_dce; cp $SRCDIR/arch/lib/tools/libsim-linux-4.4.0.so ./; ln -s -f libsim-linux-4.4.0.so liblinux.so"/>
