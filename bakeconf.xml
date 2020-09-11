@@ -427,15 +427,14 @@
        <source type="git">
          <attribute name="url" value="https://github.com/drblah/net-next-nuse.git"/>
          <attribute name="module_directory" value="net-next-nuse-4.4.0"/>
-         <attribute name="revision" value="batman-2020.3"/>
+         <attribute name="revision" value="libos-v4.4"/>
          <attribute name="fetch_option" value=""/>
        </source>
        <depends_on name="bc" optional="False"/>
        <build type="make" objdir="no">
          <attribute name="supported_os" value="linux;linux2"/>
-         <attribute name="build_arguments" value="library ARCH=lib"/>
          <attribute name="no_installation" value="True"/>
-         <attribute name="pre_installation" value="cd $SRCDIR ; make defconfig ARCH=lib ; ./scripts/config --set-val CONFIG_BATMAN_ADV y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BATMAN_V y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BLA y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_DAT y ; ./scripts/config --disable CONFIG_BATMAN_ADV_NC ; ./scripts/config --disable CONFIG_BATMAN_ADV_DEBUG ; ./scripts/config --disable CONFIG_BATMAN_ADV_SYSFS"/>
+         <attribute name="pre_installation" value="cd $SRCDIR ; make defconfig ARCH=lib ; ./scripts/config --set-val CONFIG_BATMAN_ADV y ; ./scripts/config --set-val CONFIG_BATMAN_ADV_BLA y ; ./scripts/config --disable CONFIG_BATMAN_ADV_DAT ; ./scripts/config --disable CONFIG_BATMAN_ADV_NC ; ./scripts/config --disable CONFIG_BATMAN_ADV_MCAST"/>
          <attribute name="post_installation" value="mkdir -p $INSTALLDIR/bin_dce; cd $INSTALLDIR/bin_dce; cp $SRCDIR/arch/lib/tools/libsim-linux-4.4.0.so ./; ln -s -f libsim-linux-4.4.0.so liblinux.so"/>
        </build>
      </module>
