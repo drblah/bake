@@ -231,6 +231,7 @@
         <attribute name="extract_directory" value="batctl-2015.2"/>
       </source>
       <build type="make" objdir="yes">
+        <attribute name="pre_installation" value="cd $SRCDIR; patch Makefile /batctl-dce.patch"/>
         <attribute name="install_arguments" value="DESTDIR=$INSTALLDIR" />
       </build>
      </module>
